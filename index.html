@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shree Sai Fabrication</title>
+    <link rel="stylesheet" href="resources/style.css">
+    <script defer src="resources/script.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="resources/img/ChatGPT Image Apr 22, 2025, 08_46_43 PM.png" alt="Shree Sai Fabrication Logo">
+                <div class="logo-text">
+                    <h1>Shree Sai<br>Fabrication</h1>
+                </div>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>FABRICATION</h1>
+            <h1>SHOP</h1>
+            <h3>We provide welding, metal cutting,<br>and custom fabrication services</h3>
+            <!-- Button to toggle visibility of the quote form -->
+            <button onclick="toggleQuoteForm()">Get a Quote</button>
+        </section>
+
+        <!-- Quote Request Section (Initially Hidden) -->
+        <section id="quote" class="section" style="display: none;">
+            <h2>Request a Quote</h2>
+            <p>Tell us more about your project, and we will provide an estimate:</p>
+            <form id="quote-form">
+                <input type="text" id="customer-name" name="name" placeholder="Your Name" required>
+                <input type="email" id="customer-email" name="email" placeholder="Your Email" required>
+                <textarea id="project-details" name="details" placeholder="Project Details (e.g., materials, dimensions)" required></textarea>
+                <button type="submit">Request Quote</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Shree Sai Fabrication. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to toggle the visibility of the quote request form
+        function toggleQuoteForm() {
+            const quoteSection = document.getElementById("quote");
+            // Toggle the display property between 'none' and 'block'
+            if (quoteSection.style.display === "none" || quoteSection.style.display === "") {
+                quoteSection.style.display = "block";
+            } else {
+                quoteSection.style.display = "none";
+            }
+        }
+
+        // Function to handle form submission
+        document.getElementById("quote-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const name = document.getElementById('customer-name').value;
+            const email = document.getElementById('customer-email').value;
+            const details = document.getElementById('project-details').value;
+
+            // Create an object with the form data
+            const formData = {
+                name: name,
+                email: email,
+                details: details
+            };
+
+            // Send the data to the server or API
+            sendQuoteRequest(formData);
+        });
+
+        function sendQuoteRequest(data) {
+            // Here, you would typically send this data to a backend or an email service
+            // For example, using fetch to send the data to a server:
+
+            fetch('https://formspree.io/f/mjkwvgay', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Quote request sent successfully!');
+                document.getElementById('quote-form').reset();
+                toggleQuoteForm(); // Hide the form after submission
+            })
+            .catch(error => {
+                alert('Failed to send quote request: ' + error);
+            });
+        }
+    </script>
+</body>
+</html>
